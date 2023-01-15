@@ -1,24 +1,33 @@
 package com.example.notes.notesList;
 
+import android.app.ListActivity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.notes.MainActivity;
 import com.example.notes.R;
+
+import java.util.ArrayList;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
 
     Context context;
-    NoteData[] noteList;
+    public ArrayList<NoteData> noteList;
 
-    public NoteAdapter(Context context, NoteData[] noteList) {
+
+
+    public NoteAdapter(Context context) {
         this.context = context;
-        this.noteList = noteList;
+        this.noteList = new ArrayList<>();
+
     }
 
     @NonNull
@@ -30,14 +39,16 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull NoteAdapter.ViewHolder holder, int position) {
-        holder.tvNoteHeadline.setText(noteList[position].getHeadline());
-        holder.tvNoteDescription.setText((noteList[position].getDescription()));
-        holder.tvNoteEditDate.setText(noteList[position].getEditDate());
+        holder.tvNoteHeadline.setText(noteList.get(position).getHeadline());
+        holder.tvNoteDescription.setText((noteList.get(position).getDescription()));
+        holder.tvNoteEditDate.setText(noteList.get(position).getEditDate());
+
+
     }
 
     @Override
     public int getItemCount() {
-        return noteList.length;
+        return noteList.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
